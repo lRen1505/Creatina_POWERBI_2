@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Creatina_POWERBI_2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9802b3f4-868d-42c8-9e85-09906766a2f6"
+  }
+}

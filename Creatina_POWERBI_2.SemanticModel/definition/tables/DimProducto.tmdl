@@ -1,0 +1,32 @@
+table DimProducto
+	lineageTag: 661e598d-76ed-402a-9cf3-46c75461e743
+
+	column ProductoKey
+		dataType: string
+		isHidden
+		lineageTag: 3e47d125-69dd-4ee5-b55e-df70d45d607c
+		summarizeBy: none
+		sourceColumn: ProductoKey
+
+	column ProductoInforme
+		dataType: string
+		lineageTag: ab392348-0d05-4184-968e-8713b6e83c13
+		summarizeBy: none
+		sourceColumn: ProductoInforme
+
+	column MarcaInforme
+		dataType: string
+		lineageTag: 6e2ac2ec-f944-473c-89d6-db6e258ff78e
+		summarizeBy: none
+		sourceColumn: MarcaInforme
+
+	column 'UNIDAD COMERCIAL'
+		dataType: string
+		lineageTag: 3c52ceed-36bc-40ed-8bf4-24c638484029
+		summarizeBy: none
+		sourceColumn: UNIDAD COMERCIAL
+
+	partition DimProducto = m
+		mode: import
+		source = Table.Distinct(Table.SelectColumns(Staging,{"ProductoKey","ProductoInforme","MarcaInforme","UNIDAD COMERCIAL"}))
+

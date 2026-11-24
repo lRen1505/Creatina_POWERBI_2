@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "v040",
+  "position": {
+    "x": 24,
+    "y": 370,
+    "z": 40,
+    "height": 430,
+    "width": 1230,
+    "tabOrder": 40
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "Fecha"
+                }
+              },
+              "queryRef": "HechosImportacion.Fecha",
+              "nativeQueryRef": "Fecha"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "DUA"
+                }
+              },
+              "queryRef": "HechosImportacion.DUA",
+              "nativeQueryRef": "DUA"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "SERIE"
+                }
+              },
+              "queryRef": "HechosImportacion.SERIE",
+              "nativeQueryRef": "SERIE"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "MERCANCÍA"
+                }
+              },
+              "queryRef": "HechosImportacion.MERCANCÍA",
+              "nativeQueryRef": "MERCANCÍA"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "US$ CIF"
+                }
+              },
+              "queryRef": "HechosImportacion.US$ CIF",
+              "nativeQueryRef": "US$ CIF"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "PESO NETO"
+                }
+              },
+              "queryRef": "HechosImportacion.PESO NETO",
+              "nativeQueryRef": "PESO NETO"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "DiferenciaCIF"
+                }
+              },
+              "queryRef": "HechosImportacion.DiferenciaCIF",
+              "nativeQueryRef": "DiferenciaCIF"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "MarcaFaltante"
+                }
+              },
+              "queryRef": "HechosImportacion.MarcaFaltante",
+              "nativeQueryRef": "MarcaFaltante"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "ProductoFaltante"
+                }
+              },
+              "queryRef": "HechosImportacion.ProductoFaltante",
+              "nativeQueryRef": "ProductoFaltante"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "AtipicoCIF"
+                }
+              },
+              "queryRef": "HechosImportacion.AtipicoCIF",
+              "nativeQueryRef": "AtipicoCIF"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detalle de líneas | los atípicos se conservan para revisión'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#142D4E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,22 @@
+model Model
+	culture: es-PE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["RutaExcel", "Staging", "HechosImportacion", "DimImportador", "DimOrigen", "DimProducto", "DimFecha"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table HechosImportacion
+ref table DimImportador
+ref table DimOrigen
+ref table DimProducto
+ref table DimFecha
+ref table DateTableTemplate_35451687-eaf5-4cd0-9479-587d66fa7b93
+ref table LocalDateTable_4c309d3a-c14f-42f6-b529-fbb5d822e7ed
+

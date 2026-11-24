@@ -1,0 +1,19 @@
+table DimImportador
+	lineageTag: aa97b2ec-6115-47b6-af97-eaba6c1eaf15
+
+	column 'RUC IMPORTADOR'
+		dataType: string
+		lineageTag: 51041540-b1c7-4285-a587-2a5c38d3675e
+		summarizeBy: none
+		sourceColumn: RUC IMPORTADOR
+
+	column IMPORTADOR
+		dataType: string
+		lineageTag: e7b11dfe-35c6-4b4d-b030-13d52e75dd9c
+		summarizeBy: none
+		sourceColumn: IMPORTADOR
+
+	partition DimImportador = m
+		mode: import
+		source = Table.Distinct(Table.SelectColumns(Staging,{"RUC IMPORTADOR","IMPORTADOR"}))
+

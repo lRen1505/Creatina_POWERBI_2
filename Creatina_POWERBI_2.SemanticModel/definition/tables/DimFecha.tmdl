@@ -1,0 +1,51 @@
+table DimFecha
+	lineageTag: 80052440-558d-446f-835d-048202843f59
+
+	column Fecha
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: e1759e63-e344-410f-9224-d754cf3f1105
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variation
+			isDefault
+			relationship: 4bfa62e4-59a3-4fc9-931f-3e71c3cd9dcd
+			defaultHierarchy: LocalDateTable_4c309d3a-c14f-42f6-b529-fbb5d822e7ed.'Jerarquía de fechas'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Año
+		dataType: int64
+		lineageTag: 611c7a73-19e6-44a8-b3dc-622204157ddb
+		summarizeBy: sum
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesNumero
+		dataType: int64
+		lineageTag: 6a150bd0-3f45-4a71-92db-193af36101f4
+		summarizeBy: sum
+		sourceColumn: MesNumero
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: string
+		lineageTag: 8e741b4e-15db-4edf-9b39-4f07a5fa0d62
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: MesNumero
+
+	column AñoMes
+		dataType: string
+		lineageTag: d229f3f5-c89d-4928-b2be-b34bdd4e2cc4
+		summarizeBy: none
+		sourceColumn: AñoMes
+
+	partition DimFecha = m
+		mode: import
+		source = let Inicio=#date(Date.Year(List.Min(Staging[Fecha])),1,1), Fin=#date(Date.Year(List.Max(Staging[Fecha])),12,31), T=Table.FromList(List.Dates(Inicio,Duration.Days(Fin-Inicio)+1,#duration(1,0,0,0)),Splitter.SplitByNothing(),{"Fecha"}), Tipo=Table.TransformColumnTypes(T,{{"Fecha",type date}}), A=Table.AddColumn(Tipo,"Año",each Date.Year([Fecha]),Int64.Type), M=Table.AddColumn(A,"MesNumero",each Date.Month([Fecha]),Int64.Type), N=Table.AddColumn(M,"Mes",each Date.ToText([Fecha],"MMM","es-PE"),type text), AM=Table.AddColumn(N,"AñoMes",each Date.ToText([Fecha],"yyyy-MM"),type text) in AM
+

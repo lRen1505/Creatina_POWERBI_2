@@ -1,0 +1,296 @@
+table HechosImportacion
+	lineageTag: 120a9104-54d1-41fd-a803-87b5e1448acf
+
+	measure 'CIF USD' = SUM(HechosImportacion[US$ CIF])
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: 5126b300-3065-41bd-b5d1-3494fccdf7f3
+
+	measure 'FOB USD' = SUM(HechosImportacion[US$ FOB])
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: d20d2741-118f-4b4c-8df7-501ca0cd916c
+
+	measure 'Logistica USD' = SUM(HechosImportacion[CostoLogistico])
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: 3fef59fc-d65a-40c3-a37f-39422835165a
+
+	measure 'Peso neto kg' = SUM(HechosImportacion[PESO NETO])
+		formatString: #,0.00 "kg"
+		displayFolder: Indicadores
+		lineageTag: 22cdab09-cefc-4fbf-b27f-da756c47a9a4
+
+	measure 'CIF por kg' = DIVIDE([CIF USD], [Peso neto kg])
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: ff5ab276-f7ae-45d2-993b-bbaf28645260
+
+	measure Operaciones = DISTINCTCOUNT(HechosImportacion[Operacion])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 70cb3748-ea3b-4e7c-bfb0-5074aade03ae
+
+	measure Registros = COUNTROWS(HechosImportacion)
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 0269d092-0f0c-4a5b-a526-5846151d1f50
+
+	measure Importadores = DISTINCTCOUNT(HechosImportacion[RUC IMPORTADOR])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: c2130451-4d4f-46af-9480-e37b656ee579
+
+	measure Origenes = DISTINCTCOUNT(HechosImportacion[PAÍS DE ORIGEN])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 1f3fbfed-c5e0-477c-a945-8888aa7ef14a
+
+	measure 'Carga logistica %' = DIVIDE([Logistica USD], [FOB USD])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 4089c62d-cf94-46e7-ab22-ef0487040c7f
+
+	measure 'Participacion importador %' = DIVIDE([CIF USD], CALCULATE([CIF USD], ALLSELECTED(DimImportador)))
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 6f74c046-fe92-48d6-a538-03417e053a1b
+
+	measure 'CIF año anterior' = CALCULATE([CIF USD], DATEADD(DimFecha[Fecha], -1, YEAR))
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: 1e6affde-0c67-42cf-8306-0c1417f97fe1
+
+	measure 'Variacion interanual %' = VAR Anterior = [CIF año anterior] RETURN IF(NOT ISBLANK(Anterior), DIVIDE([CIF USD]-Anterior, Anterior))
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 9ebf5ecc-5f8c-4021-b213-2c13463c8f79
+
+	measure 'CIF acumulado anual' = TOTALYTD([CIF USD], DimFecha[Fecha])
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: f1e63662-5b4e-439c-b0be-a2264a4c23a7
+
+	measure 'CIF llegada USD' = CALCULATE([CIF USD], USERELATIONSHIP(HechosImportacion[FechaLlegada], DimFecha[Fecha]))
+		formatString: "US$" #,0.00
+		displayFolder: Indicadores
+		lineageTag: ea94e50c-c179-4c0e-9886-e3507fd92571
+
+	measure 'Marcas faltantes' = SUM(HechosImportacion[MarcaFaltante])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 86629386-5b72-444b-a1a7-5641ce416a7d
+
+	measure 'Productos faltantes' = SUM(HechosImportacion[ProductoFaltante])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: aece2576-d35f-48b2-afbe-d7a41c1bd884
+
+	measure 'Atipicos CIF' = SUM(HechosImportacion[AtipicoCIF])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 1b9721f4-be4f-460c-8cd1-e671c980614f
+
+	measure 'Registros marca completa %' = 1-DIVIDE([Marcas faltantes],[Registros])
+		formatString: 0.0%
+		displayFolder: Indicadores
+		lineageTag: 05109737-287b-4cbb-a84e-04990aa73d5c
+
+	measure 'Alertas conciliacion CIF' = COUNTROWS(FILTER(HechosImportacion,ABS(HechosImportacion[DiferenciaCIF])>0.02))
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 4fdb94c3-8a34-460b-8657-88454992244e
+
+	measure 'Duplicados de clave' = [Registros]-DISTINCTCOUNT(HechosImportacion[Linea])
+		formatString: 0
+		displayFolder: Indicadores
+		lineageTag: 3ccb0076-1bdc-4d00-b75d-8922d622be1e
+
+	measure 'Unidades comerciales' = IF(HASONEVALUE(DimProducto[UNIDAD COMERCIAL]),SUM(HechosImportacion[CANTIDAD COMERCIAL]),BLANK())
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 2f616694-6b44-48ff-bb2f-3d6cb223229d
+
+	measure 'Transito medio por operacion' = AVERAGEX(VALUES(HechosImportacion[Operacion]),CALCULATE(MAX(HechosImportacion[DiasTransito])))
+		formatString: 0.0 "días"
+		displayFolder: Indicadores
+		lineageTag: 2a52268f-2484-4910-8d62-f2592a04daf9
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c1885bdc-4c55-4073-bb07-4557470c632f
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FechaLlegada
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 95b63f31-1212-481d-971f-92f66a10cf2b
+		summarizeBy: none
+		sourceColumn: FechaLlegada
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FechaEmbarque
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 34c070e7-86dd-468b-ae02-7db990f0be43
+		summarizeBy: none
+		sourceColumn: FechaEmbarque
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Operacion
+		dataType: string
+		lineageTag: 7b56580d-366c-4783-98e7-855361583ee8
+		summarizeBy: none
+		sourceColumn: Operacion
+
+	column Linea
+		dataType: string
+		lineageTag: 2cfc6d6e-e3aa-4911-b462-f925a30001d3
+		summarizeBy: none
+		sourceColumn: Linea
+
+	column DUA
+		dataType: string
+		lineageTag: ef1cc855-9dac-4e27-980a-5dc1941d308e
+		summarizeBy: none
+		sourceColumn: DUA
+
+	column SERIE
+		dataType: string
+		lineageTag: b3f984c2-871d-4807-a977-dc43436ccc4e
+		summarizeBy: none
+		sourceColumn: SERIE
+
+	column 'RUC IMPORTADOR'
+		dataType: string
+		isHidden
+		lineageTag: a8ae544a-ee0a-49b6-8720-6b1d189549fa
+		summarizeBy: none
+		sourceColumn: RUC IMPORTADOR
+
+	column 'PAÍS DE ORIGEN'
+		dataType: string
+		isHidden
+		lineageTag: 4275c539-bb2b-4afb-944f-638486c4def4
+		summarizeBy: none
+		sourceColumn: PAÍS DE ORIGEN
+
+	column ProductoKey
+		dataType: string
+		isHidden
+		lineageTag: 7ebf8544-ac0e-48a3-a101-89197cb2c985
+		summarizeBy: none
+		sourceColumn: ProductoKey
+
+	column MERCANCÍA
+		dataType: string
+		lineageTag: f8c5dc7c-0c95-49b7-8ed5-bab030432858
+		summarizeBy: none
+		sourceColumn: MERCANCÍA
+
+	column 'US$ FOB'
+		dataType: double
+		lineageTag: 9528aee3-d5bb-429f-9fe9-b30c4a486c9b
+		summarizeBy: none
+		sourceColumn: US$ FOB
+
+	column 'US$ FLETE'
+		dataType: double
+		lineageTag: 90333537-4783-4e3a-bdaa-cd7cf3a46ea0
+		summarizeBy: none
+		sourceColumn: US$ FLETE
+
+	column 'US$ SEGURO'
+		dataType: double
+		lineageTag: f6a5863c-47b6-4d18-a4a5-73f6b47fc7dc
+		summarizeBy: none
+		sourceColumn: US$ SEGURO
+
+	column 'US$ CIF'
+		dataType: double
+		lineageTag: ec7463b6-d7d2-449e-ae99-e8171e7e74d5
+		summarizeBy: none
+		sourceColumn: US$ CIF
+
+	column 'PESO NETO'
+		dataType: double
+		lineageTag: eb65de2e-2e39-42da-89c6-5a7ad2158269
+		summarizeBy: none
+		sourceColumn: PESO NETO
+
+	column 'PESO BRUTO'
+		dataType: double
+		lineageTag: 02f489cb-249a-4a9d-9701-d14fb83d448c
+		summarizeBy: none
+		sourceColumn: PESO BRUTO
+
+	column 'CANTIDAD COMERCIAL'
+		dataType: double
+		lineageTag: 0044691f-ecc3-4e5a-924c-29bacfd35b65
+		summarizeBy: none
+		sourceColumn: CANTIDAD COMERCIAL
+
+	column IGV
+		dataType: double
+		lineageTag: 83c1cf20-a13a-4f95-bbd9-4f7bab414232
+		summarizeBy: none
+		sourceColumn: IGV
+
+	column IPM
+		dataType: double
+		lineageTag: a24b64a8-2b62-44aa-9fb1-36d7d607c1c3
+		summarizeBy: none
+		sourceColumn: IPM
+
+	column ADVALOREM
+		dataType: double
+		lineageTag: 9f1ac634-fc2e-466b-a199-06dd7c7bc9ae
+		summarizeBy: none
+		sourceColumn: ADVALOREM
+
+	column DiferenciaCIF
+		dataType: double
+		lineageTag: 52bcc668-20b5-4d5b-8c6d-8a4700a8262c
+		summarizeBy: none
+		sourceColumn: DiferenciaCIF
+
+	column CostoLogistico
+		dataType: double
+		lineageTag: a21e379e-1221-4c53-9e90-97ff7adbf13c
+		summarizeBy: none
+		sourceColumn: CostoLogistico
+
+	column DiasTransito
+		dataType: int64
+		lineageTag: dc2d4bfc-502b-4387-b4ee-8e1e9d46b838
+		summarizeBy: none
+		sourceColumn: DiasTransito
+
+	column MarcaFaltante
+		dataType: int64
+		lineageTag: 1d89c451-da81-4ffe-9016-7285c9f2e962
+		summarizeBy: none
+		sourceColumn: MarcaFaltante
+
+	column ProductoFaltante
+		dataType: int64
+		lineageTag: ab58a1d6-582a-47cb-b2c7-25d4423691f0
+		summarizeBy: none
+		sourceColumn: ProductoFaltante
+
+	column AtipicoCIF
+		dataType: int64
+		lineageTag: b32dead1-ae60-421b-8a16-2ff0a89483bb
+		summarizeBy: none
+		sourceColumn: AtipicoCIF
+
+	partition HechosImportacion = m
+		mode: import
+		source = Table.SelectColumns(Staging, {"Fecha","FechaLlegada","FechaEmbarque","Operacion","Linea","DUA","SERIE","RUC IMPORTADOR","PAÍS DE ORIGEN","ProductoKey","MERCANCÍA","US$ FOB","US$ FLETE","US$ SEGURO","US$ CIF","PESO NETO","PESO BRUTO","CANTIDAD COMERCIAL","IGV","IPM","ADVALOREM","DiferenciaCIF","CostoLogistico","DiasTransito","MarcaFaltante","ProductoFaltante","AtipicoCIF"})
+

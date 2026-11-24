@@ -1,0 +1,13 @@
+table DimOrigen
+	lineageTag: 18ccb37f-ea8c-4dc9-9b88-8fad0b1cc337
+
+	column 'PAÍS DE ORIGEN'
+		dataType: string
+		lineageTag: 2bbba040-e460-4a78-836b-19deac91b96e
+		summarizeBy: none
+		sourceColumn: PAÍS DE ORIGEN
+
+	partition DimOrigen = m
+		mode: import
+		source = Table.Distinct(Table.SelectColumns(Staging,{"PAÍS DE ORIGEN"}))
+

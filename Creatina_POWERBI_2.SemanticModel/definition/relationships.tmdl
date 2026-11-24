@@ -1,0 +1,31 @@
+relationship a7532ae7-b0d3-4224-b877-d2987c19a8be
+	fromColumn: HechosImportacion.'RUC IMPORTADOR'
+	toColumn: DimImportador.'RUC IMPORTADOR'
+
+relationship 8c95dc03-6962-48d0-8a24-5606941465f7
+	fromColumn: HechosImportacion.'PAÍS DE ORIGEN'
+	toColumn: DimOrigen.'PAÍS DE ORIGEN'
+
+relationship 9b52479c-a2a2-4aa2-bb61-236da89f8527
+	fromColumn: HechosImportacion.ProductoKey
+	toColumn: DimProducto.ProductoKey
+
+relationship 637e02a4-e710-4e5e-b485-0e48e3783be2
+	fromColumn: HechosImportacion.Fecha
+	toColumn: DimFecha.Fecha
+
+relationship 8af9fa69-3708-4591-9170-ce1468bd43bf
+	isActive: false
+	fromColumn: HechosImportacion.FechaLlegada
+	toColumn: DimFecha.Fecha
+
+relationship 15a2f926-c1bb-44c1-969e-679d7d76b614
+	isActive: false
+	fromColumn: HechosImportacion.FechaEmbarque
+	toColumn: DimFecha.Fecha
+
+relationship 4bfa62e4-59a3-4fc9-931f-3e71c3cd9dcd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimFecha.Fecha
+	toColumn: LocalDateTable_4c309d3a-c14f-42f6-b529-fbb5d822e7ed.Date
+

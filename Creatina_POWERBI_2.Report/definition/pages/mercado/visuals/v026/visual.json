@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "v026",
+  "position": {
+    "x": 24,
+    "y": 570,
+    "z": 26,
+    "height": 230,
+    "width": 1230,
+    "tabOrder": 26
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrigen"
+                    }
+                  },
+                  "Property": "PAÍS DE ORIGEN"
+                }
+              },
+              "queryRef": "DimOrigen.PAÍS DE ORIGEN",
+              "nativeQueryRef": "PAÍS DE ORIGEN"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "CIF USD"
+                }
+              },
+              "queryRef": "HechosImportacion.CIF USD",
+              "nativeQueryRef": "CIF USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "Peso neto kg"
+                }
+              },
+              "queryRef": "HechosImportacion.Peso neto kg",
+              "nativeQueryRef": "Peso neto kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "CIF por kg"
+                }
+              },
+              "queryRef": "HechosImportacion.CIF por kg",
+              "nativeQueryRef": "CIF por kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "HechosImportacion"
+                    }
+                  },
+                  "Property": "Operaciones"
+                }
+              },
+              "queryRef": "HechosImportacion.Operaciones",
+              "nativeQueryRef": "Operaciones"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Comparativo por origen | costos ponderados'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#142D4E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
