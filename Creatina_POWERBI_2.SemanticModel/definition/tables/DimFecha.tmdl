@@ -1,6 +1,10 @@
 table DimFecha
 	lineageTag: 80052440-558d-446f-835d-048202843f59
 
+	measure 'Indicador Creatina' = 1
+		formatString: 0
+		lineageTag: 0adaad92-0d86-4da9-b0bf-dd6ddbe736d0
+
 	column Fecha
 		dataType: dateTime
 		isKey
