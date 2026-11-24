@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.15.0/schema.json",
+  "name": "6e6318e9ed3f024bcce0",
+  "position": {
+    "x": 673.64556962025324,
+    "y": 569.84810126582283,
+    "z": 34,
+    "height": 250.15189873417722,
+    "width": 566.7341772151899,
+    "tabOrder": 34
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrigen"
+                    }
+                  },
+                  "Property": "PAÍS DE ORIGEN"
+                }
+              },
+              "queryRef": "DimOrigen.PAÍS DE ORIGEN",
+              "nativeQueryRef": "Recuento de PAÍS DE ORIGEN",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "HechosImportacion"
+                        }
+                      },
+                      "Property": "CANTIDAD COMERCIAL"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(HechosImportacion.CANTIDAD COMERCIAL)",
+              "nativeQueryRef": "CANTIDAD COMERCIAL"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "HechosImportacion"
+                      }
+                    },
+                    "Property": "CANTIDAD COMERCIAL"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fb4d8fbc0e3ffdf6baf4",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "HechosImportacion"
+                  }
+                },
+                "Property": "CANTIDAD COMERCIAL"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f1781c6b27f857d3d475",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimOrigen"
+              }
+            },
+            "Property": "PAÍS DE ORIGEN"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
